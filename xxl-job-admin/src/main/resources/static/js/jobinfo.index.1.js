@@ -370,7 +370,7 @@ $(function() {
 		$("#updateModal .form input[name='executorParam']").val( row.executorParam );
         $("#updateModal .form input[name='childJobKey']").val( row.childJobKey );
 		$('#updateModal .form select[name=executorBlockStrategy] option[value='+ row.executorBlockStrategy +']').prop('selected', true);
-		$('#updateModal .form select[name=executorFailStrategy] option[value='+ row.executorFailStrategy +']').prop('selected', true);
+		//$('#updateModal .form select[name=executorFailStrategy] option[value='+ row.executorFailStrategy +']').prop('selected', true);
 		$('#updateModal .form select[name=glueType] option[value='+ row.glueType +']').prop('selected', true);
 
         $("#updateModal .form select[name=glueType]").change();

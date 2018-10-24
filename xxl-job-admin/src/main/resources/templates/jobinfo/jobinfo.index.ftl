@@ -156,13 +156,13 @@
                             </select>
 						</div>
                         <label for="lastname" class="col-sm-2 control-label">失败处理策略<font color="red">*</font></label>
-                        <div class="col-sm-4">
+                        <#--<div class="col-sm-4">
                             <select class="form-control" name="executorFailStrategy" >
 								<#list ExecutorFailStrategyEnum as item>
 									<option value="${item}" >${item.title}</option>
 								</#list>
                             </select>
-						</div>
+						</div>-->
                     </div>
 					<div class="form-group">
                         <label for="lastname" class="col-sm-2 control-label">负责人<font color="red">*</font></label>
@@ -299,14 +299,14 @@ logging.info("脚本文件：" + sys.argv[0])
 							</#list>
                             </select>
                         </div>
-                        <label for="lastname" class="col-sm-2 control-label">失败处理策略<font color="red">*</font></label>
+                        <#--<label for="lastname" class="col-sm-2 control-label">失败处理策略<font color="red">*</font></label>
                         <div class="col-sm-4">
                             <select class="form-control" name="executorFailStrategy" >
 							<#list ExecutorFailStrategyEnum as item>
                                 <option value="${item}" >${item.title}</option>
 							</#list>
                             </select>
-                        </div>
+                        </div>-->
                     </div>
                     <div class="form-group">
                         <label for="lastname" class="col-sm-2 control-label">负责人<font color="red">*</font></label>

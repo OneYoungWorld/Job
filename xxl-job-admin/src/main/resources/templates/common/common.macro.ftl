@@ -174,7 +174,7 @@
 
 <#macro commonFooter >
 	<footer class="main-footer">
-        Powered by <b>Sinosoft</b>
+        Powered by <b>xxl</b>
 		<div class="pull-right hidden-xs">
             <strong>Copyright &copy; 2015-${.now?string('yyyy')} &nbsp;
             </strong><!-- All rights reserved. -->
