@@ -57,7 +57,7 @@ public class QuartzConfig {
         prop.setProperty("org.quartz.dataSource.quartzDataSource.driver", "com.mysql.jdbc.Driver");
         prop.setProperty("org.quartz.dataSource.quartzDataSource.URL", "jdbc:mysql://localhost:3306/xxl-job?useUnicode=true&characterEncoding=UTF-8");
         prop.setProperty("org.quartz.dataSource.quartzDataSource.user", "root");
-        prop.setProperty("org.quartz.dataSource.quartzDataSource.password", "admin");
+        prop.setProperty("org.quartz.dataSource.quartzDataSource.password", "root");
         prop.setProperty("org.quartz.dataSource.quartzDataSource.maxConnections", "10");
         prop.setProperty("org.quartz.dataSource.quartzDataSource.validationQuery", "select count(0) from dual");
         return prop;
