@@ -2,7 +2,6 @@ package com.xxl.job.admin.core.route.strategy;
 
 import com.xxl.job.admin.core.route.ExecutorRouter;
 import com.xxl.job.admin.core.schedule.XxlJobDynamicScheduler;
-import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.core.biz.ExecutorBiz;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.biz.model.TriggerParam;
@@ -29,7 +28,7 @@ public class ExecutorRouteFailover extends ExecutorRouter {
                 beatResult = new ReturnT<String>(ReturnT.FAIL_CODE, ""+e );
             }
             beatResultSB.append( (beatResultSB.length()>0)?"<br><br>":"")
-                    .append(I18nUtil.getString("jobconf_beat") + "：")
+                    .append("心跳检测：")
                     .append("<br>address：").append(address)
                     .append("<br>code：").append(beatResult.getCode())
                     .append("<br>msg：").append(beatResult.getMsg());

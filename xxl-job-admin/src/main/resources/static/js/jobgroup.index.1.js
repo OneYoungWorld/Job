@@ -4,11 +4,7 @@ $(function() {
 	$('.remove').on('click', function(){
 		var id = $(this).attr('id');
 
-		layer.confirm( (I18n.system_ok + I18n.jobgroup_del + '？') , {
-			icon: 3,
-			title: I18n.system_tips ,
-            btn: [ I18n.system_ok, I18n.system_cancel ]
-		}, function(index){
+		layer.confirm('确认删除分组?', {icon: 3, title:'系统提示'}, function(index){
 			layer.close(index);
 
 			$.ajax({
@@ -19,9 +15,8 @@ $(function() {
 				success : function(data){
 					if (data.code == 200) {
 						layer.open({
-							title: I18n.system_tips ,
-                            btn: [ I18n.system_ok ],
-							content: (I18n.jobgroup_del + I18n.system_success),
+							title: '系统提示',
+							content: '删除成功',
 							icon: '1',
 							end: function(layero, index){
 								window.location.reload();
@@ -29,9 +24,8 @@ $(function() {
 						});
 					} else {
 						layer.open({
-							title: I18n.system_tips,
-                            btn: [ I18n.system_ok ],
-							content: (data.msg || (I18n.jobgroup_del + I18n.system_fail)),
+							title: '系统提示',
+							content: (data.msg || "删除失败"),
 							icon: '2'
 						});
 					}
@@ -41,12 +35,12 @@ $(function() {
 
 	});
 
-	// jquery.validate “low letters start, limit contants、 letters、numbers and line-through.”
+	// jquery.validate 自定义校验 “英文字母开头，只含有英文字母、数字和下划线”
 	jQuery.validator.addMethod("myValid01", function(value, element) {
 		var length = value.length;
 		var valid = /^[a-z][a-zA-Z0-9-]*$/;
 		return this.optional(element) || valid.test(value);
-	}, I18n.jobgroup_field_appName_limit );
+	}, "限制以小写字母开头，由小写字母、数字和下划线组成");
 
 	$('.add').on('click', function(){
 		$('#addModal').modal({backdrop: false, keyboard: false}).modal('show');
@@ -73,18 +67,18 @@ $(function() {
 		},
 		messages : {
 			appName : {
-				required : I18n.system_please_input+"AppName",
-				rangelength: I18n.jobgroup_field_appName_length ,
-				myValid01: I18n.jobgroup_field_appName_limit
+				required :"请输入“AppName”",
+				rangelength:"AppName长度限制为4~64",
+				myValid01: "限制以小写字母开头，由小写字母、数字和中划线组成"
 			},
 			title : {
-				required : I18n.system_please_input + I18n.jobgroup_field_title ,
-				rangelength: I18n.jobgroup_field_title_length
+				required :"请输入“执行器名称”",
+				rangelength:"长度限制为4~12"
 			},
 			order : {
-				required : I18n.system_please_input + I18n.jobgroup_field_order ,
-				digits: I18n.jobgroup_field_order_digits ,
-				range: I18n.jobgroup_field_orderrange
+				required :"请输入“排序”",
+				digits: "请输入整数",
+				range: "取值范围为1~1000"
 			}
 		},
 		highlight : function(element) {
@@ -102,9 +96,8 @@ $(function() {
 				if (data.code == "200") {
 					$('#addModal').modal('hide');
 					layer.open({
-						title: I18n.system_tips ,
-                        btn: [ I18n.system_ok ],
-						content: I18n.system_add_suc ,
+						title: '系统提示',
+						content: '新增成功',
 						icon: '1',
 						end: function(layero, index){
 							window.location.reload();
@@ -112,9 +105,8 @@ $(function() {
 					});
 				} else {
 					layer.open({
-						title: I18n.system_tips,
-                        btn: [ I18n.system_ok ],
-						content: (data.msg || I18n.system_add_fail  ),
+						title: '系统提示',
+						content: (data.msg || "新增失败"),
 						icon: '2'
 					});
 				}
@@ -127,16 +119,14 @@ $(function() {
 		$("#addModal .form .form-group").removeClass("has-error");
 	});
 
-	// addressType change
+	// 注册方式，切换
 	$("#addModal input[name=addressType], #updateModal input[name=addressType]").click(function(){
 		var addressType = $(this).val();
-		var $addressList = $(this).parents("form").find("textarea[name=addressList]");
+		var $addressList = $(this).parents("form").find("input[name=addressList]");
 		if (addressType == 0) {
-            $addressList.css("background-color", "#eee");	// 自动注册
-            $addressList.attr("readonly","readonly");
 			$addressList.val("");
+			$addressList.attr("readonly","readonly");
 		} else {
-            $addressList.css("background-color", "white");
 			$addressList.removeAttr("readonly");
 		}
 	});
@@ -154,7 +144,7 @@ $(function() {
 		//$("#updateModal .form input[name='addressType'][value='"+ addressType +"']").attr('checked', 'true');
 		$("#updateModal .form input[name='addressType'][value='"+ addressType +"']").click();
 		// 机器地址
-		$("#updateModal .form textarea[name='addressList']").val($(this).attr("addressList"));
+		$("#updateModal .form input[name='addressList']").val($(this).attr("addressList"));
 
 		$('#updateModal').modal({backdrop: false, keyboard: false}).modal('show');
 	});
@@ -179,20 +169,20 @@ $(function() {
 			}
 		},
 		messages : {
-            appName : {
-                required : I18n.system_please_input+"AppName",
-                rangelength: I18n.jobgroup_field_appName_length ,
-                myValid01: I18n.jobgroup_field_appName_limit
-            },
-            title : {
-                required : I18n.system_please_input + I18n.jobgroup_field_title ,
-                rangelength: I18n.jobgroup_field_title_length
-            },
-            order : {
-                required : I18n.system_please_input + I18n.jobgroup_field_order ,
-                digits: I18n.jobgroup_field_order_digits ,
-                range: I18n.jobgroup_field_orderrange
-            }
+			appName : {
+				required :"请输入“AppName”",
+				rangelength:"AppName长度限制为4~64",
+				myValid01: "限制以小写字母开头，由小写字母、数字和中划线组成"
+			},
+			title : {
+				required :"请输入“执行器名称”",
+				rangelength:"长度限制为4~12"
+			},
+			order : {
+				required :"请输入“排序”",
+				digits: "请输入整数",
+				range: "取值范围为1~1000"
+			}
 		},
 		highlight : function(element) {
 			$(element).closest('.form-group').addClass('has-error');
@@ -210,9 +200,8 @@ $(function() {
 					$('#addModal').modal('hide');
 
 					layer.open({
-						title: I18n.system_tips ,
-                        btn: [ I18n.system_ok ],
-						content: I18n.system_update_suc ,
+						title: '系统提示',
+						content: '更新成功',
 						icon: '1',
 						end: function(layero, index){
 							window.location.reload();
@@ -220,9 +209,8 @@ $(function() {
 					});
 				} else {
 					layer.open({
-						title: I18n.system_tips,
-                        btn: [ I18n.system_ok ],
-						content: (data.msg || I18n.system_update_fail  ),
+						title: '系统提示',
+						content: (data.msg || "更新失败"),
 						icon: '2'
 					});
 				}

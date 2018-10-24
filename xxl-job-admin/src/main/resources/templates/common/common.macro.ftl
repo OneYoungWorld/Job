@@ -8,17 +8,17 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.5 -->
-    <link rel="stylesheet" href="${request.contextPath}/static/adminlte/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/adminlte/bootstrap/css/bootstrap.min.css">
     <!-- Font Awesome -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css"> -->
-    <link rel="stylesheet" href="${request.contextPath}/static/plugins/font-awesome-4.5.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/plugins/font-awesome-4.5.0/css/font-awesome.min.css">
     <!-- Ionicons -->
     <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"> -->
-    <link rel="stylesheet" href="${request.contextPath}/static/plugins/ionicons-2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="/plugins/ionicons-2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="${request.contextPath}/static/adminlte/dist/css/AdminLTE-local.min.css">
+    <link rel="stylesheet" href="/adminlte/dist/css/AdminLTE-local.min.css">
     <!-- AdminLTE Skins. Choose a skin from the css/skins folder instead of downloading all of them to reduce the load. -->
-    <link rel="stylesheet" href="${request.contextPath}/static/adminlte/dist/css/skins/_all-skins.min.css">
+    <link rel="stylesheet" href="/adminlte/dist/css/skins/_all-skins.min.css">
       
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,47 +28,40 @@
     <![endif]-->
 
 	<!-- pace -->
-	<link rel="stylesheet" href="${request.contextPath}/static/plugins/pace/themes/pace-theme-flash.css">
-
-	<#-- i18n -->
-	<#global I18n = I18nUtil.getMultString()?eval />
-
+	<link rel="stylesheet" href="/plugins/pace/themes/pace-theme-flash.css">
 </#macro>
 
 <#macro commonScript>
 	<!-- jQuery 2.1.4 -->
-	<script src="${request.contextPath}/static/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
+	<script src="/adminlte/plugins/jQuery/jquery-2.2.3.min.js"></script>
 	<!-- Bootstrap 3.3.5 -->
-	<script src="${request.contextPath}/static/adminlte/bootstrap/js/bootstrap.min.js"></script>
+	<script src="/adminlte/bootstrap/js/bootstrap.min.js"></script>
 	<!-- FastClick -->
-	<script src="${request.contextPath}/static/adminlte/plugins/fastclick/fastclick.min.js"></script>
+	<script src="/adminlte/plugins/fastclick/fastclick.min.js"></script>
 	<!-- AdminLTE App -->
-	<script src="${request.contextPath}/static/adminlte/dist/js/app.min.js"></script>
+	<script src="/adminlte/dist/js/app.min.js"></script>
 	<#-- jquery.slimscroll -->
-	<script src="${request.contextPath}/static/adminlte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
+	<script src="/adminlte/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 
     <!-- pace -->
-    <script src="${request.contextPath}/static/plugins/pace/pace.min.js"></script>
+    <script src="/plugins/pace/pace.min.js"></script>
     <#-- jquery cookie -->
-	<script src="${request.contextPath}/static/plugins/jquery/jquery.cookie.js"></script>
+	<script src="/plugins/jquery/jquery.cookie.js"></script>
 
 	<#-- layer -->
-	<script src="${request.contextPath}/static/plugins/layer/layer.js"></script>
+	<script src="/plugins/layer/layer.js"></script>
 
 	<#-- common -->
-    <script src="${request.contextPath}/static/js/common.1.js"></script>
-    <script>
-		var base_url = '${request.contextPath}';
-        var I18n = ${I18nUtil.getMultString()};
-	</script>
+    <script src="/js/common.1.js"></script>
+    <script>var base_url = '';</script>
 
 </#macro>
 
 <#macro commonHeader>
 	<header class="main-header">
-		<a href="${request.contextPath}/" class="logo">
-			<span class="logo-mini"><b>XXL</b></span>
-			<span class="logo-lg"><b>${I18n.admin_name}</b></span>
+		<a href="/" class="logo">
+			<span class="logo-mini"><b>JOB</b></span>
+			<span class="logo-lg"><b>任务调度中心</b></span>
 		</a>
 		<nav class="navbar navbar-static-top" role="navigation">
 			<a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button"><span class="sr-only">切换导航</span></a>
@@ -76,7 +69,7 @@
 				<ul class="nav navbar-nav">
 					<li class="dropdown user user-menu">
 	                    <a href=";" id="logoutBtn" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                      		<span class="hidden-xs">${I18n.logout_btn}</span>
+                      		<span class="hidden-xs">注销</span>
 	                    </a>
 					</li>
 				</ul>
@@ -92,12 +85,10 @@
 		<section class="sidebar">
 			<!-- sidebar menu: : style can be found in sidebar.less -->
 			<ul class="sidebar-menu">
-                <li class="header">${I18n.system_nav}</li>
-                <li class="nav-click <#if pageName == "index">active</#if>" ><a href="${request.contextPath}/"><i class="fa fa-circle-o text-aqua"></i><span>${I18n.job_dashboard_name}</span></a></li>
-				<li class="nav-click <#if pageName == "jobinfo">active</#if>" ><a href="${request.contextPath}/jobinfo"><i class="fa fa-circle-o text-yellow"></i><span>${I18n.jobinfo_name}</span></a></li>
-				<li class="nav-click <#if pageName == "joblog">active</#if>" ><a href="${request.contextPath}/joblog"><i class="fa fa-circle-o text-green"></i><span>${I18n.joblog_name}</span></a></li>
-                <li class="nav-click <#if pageName == "jobgroup">active</#if>" ><a href="${request.contextPath}/jobgroup"><i class="fa fa-circle-o text-red"></i><span>${I18n.jobgroup_name}</span></a></li>
-				<li class="nav-click <#if pageName == "help">active</#if>" ><a href="${request.contextPath}/help"><i class="fa fa-circle-o text-gray"></i><span>${I18n.job_help}</span></a></li>
+				<li class="header">常用模块</li>
+				<li class="nav-click <#if pageName == "jobinfo">active</#if>" ><a href="/jobinfo"><i class="fa fa-circle-o text-aqua"></i><span>任务管理</span></a></li>
+				<li class="nav-click <#if pageName == "joblog">active</#if>" ><a href="/joblog"><i class="fa fa-circle-o text-yellow"></i><span>调度日志</span></a></li>
+                <li class="nav-click <#if pageName == "jobgroup">active</#if>" ><a href="/jobgroup"><i class="fa fa-circle-o text-green"></i><span>执行器管理</span></a></li>
 			</ul>
 		</section>
 		<!-- /.sidebar -->
@@ -183,12 +174,9 @@
 
 <#macro commonFooter >
 	<footer class="main-footer">
-        Powered by <b>XXL-JOB</b> ${I18n.admin_version}
+        Powered by <b>Sinosoft</b>
 		<div class="pull-right hidden-xs">
             <strong>Copyright &copy; 2015-${.now?string('yyyy')} &nbsp;
-                <a href="http://www.xuxueli.com/" target="_blank" >xuxueli</a>
-				&nbsp;
-                <a href="https://github.com/xuxueli/xxl-job" target="_blank" >github</a>
             </strong><!-- All rights reserved. -->
 		</div>
 	</footer>

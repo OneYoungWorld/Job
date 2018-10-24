@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
-  	<#import "/common/common.macro.ftl" as netCommon>
+  	<title>任务调度中心</title>
+  	<#import "common/common.macro.ftl" as netCommon>
 	<@netCommon.commonStyle />
-	<link rel="stylesheet" href="${request.contextPath}/static/plugins/codemirror/lib/codemirror.css">
-	<link rel="stylesheet" href="${request.contextPath}/static/plugins/codemirror/addon/hint/show-hint.css">
-    <title>${I18n.admin_name}</title>
+	<link rel="stylesheet" href="/plugins/codemirror/lib/codemirror.css">
+	<link rel="stylesheet" href="/plugins/codemirror/addon/hint/show-hint.css">
 	<style type="text/css">
 		.CodeMirror {
       		font-size:16px;
@@ -35,11 +35,7 @@
                     <#-- left nav -->
                     <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
                         <ul class="nav navbar-nav">
-                            <li class="active" ><a href="javascript:;">
-                                <span class="sr-only">(current)</span>
-                                【<#list GlueTypeEnum as item><#if item == jobInfo.glueType>${item.desc}</#if></#list>】
-                                ${jobInfo.jobDesc}
-                            </a></li>
+                            <li class="active" ><a href="javascript:;"><#list GlueTypeEnum as item><#if item == jobInfo.glueType>${item.desc}</#if></#list> 任务：${jobInfo.jobDesc}<span class="sr-only">(current)</span></a></li>
                         </ul>
                     </div>
 
@@ -47,7 +43,7 @@
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
                             <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">${I18n.jobinfo_glue_rollback} <span class="caret"></span></a>
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">版本回溯 <span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
                                     <li <#if jobLogGlues?exists && jobLogGlues?size gt 0 >style="display: none;"</#if> >
                                         <a href="javascript:;" class="source_version" version="version_now" glueType="${jobInfo.glueType}" >
@@ -70,7 +66,7 @@
                             <li id="save" >
 								<a href="javascript:;" >
 									<i class="fa fa-fw fa-save" ></i>
-                                    ${I18n.system_save}
+                                    保存
 								</a>
 							</li>
                         </ul>
@@ -91,19 +87,19 @@
         <div class="modal-dialog ">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title" ><i class="fa fa-fw fa-save"></i>${I18n.system_save}</h4>
+                    <h4 class="modal-title" ><i class="fa fa-fw fa-save"></i>保存</h4>
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal form" role="form" >
                         <div class="form-group">
-                            <label for="lastname" class="col-sm-2 control-label">${I18n.jobinfo_glue_remark}<font color="red">*</font></label>
-                            <div class="col-sm-10"><input type="text" class="form-control" id="glueRemark" placeholder="${I18n.system_please_input}${I18n.jobinfo_glue_remark}" maxlength="64" ></div>
+                            <label for="lastname" class="col-sm-2 control-label">源码备注<font color="red">*</font></label>
+                            <div class="col-sm-10"><input type="text" class="form-control" id="glueRemark" placeholder="请输入备注信息" maxlength="64" ></div>
                         </div>
                         <hr>
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
-                                <button type="button" class="btn btn-primary ok" >${I18n.system_save}</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">${I18n.system_cancel}</button>
+                                <button type="button" class="btn btn-primary ok" >保存</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                             </div>
                         </div>
                     </form>
@@ -113,46 +109,17 @@
     </div>
 	
 <@netCommon.commonScript />
-
-
-    <#assign glueTypeModeSrc = "${request.contextPath}/static/plugins/codemirror/mode/clike/clike.js" />
-    <#assign glueTypeIdeMode = "text/x-java" />
-
-    <#if jobInfo.glueType == "GLUE_GROOVY" >
-        <#assign glueTypeModeSrc = "${request.contextPath}/static/plugins/codemirror/mode/clike/clike.js" />
-        <#assign glueTypeIdeMode = "text/x-java" />
-    <#elseif jobInfo.glueType == "GLUE_SHELL" >
-        <#assign glueTypeModeSrc = "${request.contextPath}/static/plugins/codemirror/mode/shell/shell.js" />
-        <#assign glueTypeIdeMode = "text/x-sh" />
-    <#elseif jobInfo.glueType == "GLUE_PYTHON" >
-        <#assign glueTypeModeSrc = "${request.contextPath}/static/plugins/codemirror/mode/python/python.js" />
-        <#assign glueTypeIdeMode = "text/x-python" />
-    <#elseif jobInfo.glueType == "GLUE_PHP" >
-        <#assign glueTypeModeSrc = "${request.contextPath}/static/plugins/codemirror/mode/php/php.js" />
-        <#assign glueTypeIdeMode = "text/x-php" />
-        <#assign glueTypeModeSrc02 = "${request.contextPath}/static/plugins/codemirror/mode/clike/clike.js" />
-    <#elseif jobInfo.glueType == "GLUE_NODEJS" >
-        <#assign glueTypeModeSrc = "${request.contextPath}/static/plugins/codemirror/mode/javascript/javascript.js" />
-        <#assign glueTypeIdeMode = "text/javascript" />
-    <#elseif jobInfo.glueType == "GLUE_POWERSHELL" >
-        <#assign glueTypeModeSrc = "${request.contextPath}/static/plugins/codemirror/mode/powershell/powershell.js" />
-        <#assign glueTypeIdeMode = "powershell" />
-    </#if>
-
-
-<script src="${request.contextPath}/static/plugins/codemirror/lib/codemirror.js"></script>
-<script src="${glueTypeModeSrc}"></script>
-<#if glueTypeModeSrc02?exists>
-    <script src="${glueTypeModeSrc02}"></script>
-</#if>
-<script src="${request.contextPath}/static/plugins/codemirror/addon/hint/show-hint.js"></script>
-<script src="${request.contextPath}/static/plugins/codemirror/addon/hint/anyword-hint.js"></script>
-
+<script src="/plugins/codemirror/lib/codemirror.js"></script>
+<script src="/plugins/codemirror/mode/clike/clike.js"></script>
+<script src="/plugins/codemirror/mode/shell/shell.js"></script>
+<script src="/plugins/codemirror/mode/python/python.js"></script>
+<script src="/plugins/codemirror/addon/hint/show-hint.js"></script>
+<script src="/plugins/codemirror/addon/hint/anyword-hint.js"></script>
 <script>
 var id = '${jobInfo.id}';
-var ideMode = '${glueTypeIdeMode}';
+var glueType = '${jobInfo.glueType}';
 </script>
-<script src="${request.contextPath}/static/js/jobcode.index.1.js"></script>
+<script src="/js/jobcode.index.1.js"></script>
 
 </body>
 </html>

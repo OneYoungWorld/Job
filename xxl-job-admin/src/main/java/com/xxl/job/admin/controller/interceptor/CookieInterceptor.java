@@ -1,7 +1,5 @@
 package com.xxl.job.admin.controller.interceptor;
 
-import com.xxl.job.admin.core.util.FtlUtil;
-import com.xxl.job.admin.core.util.I18nUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -31,11 +29,11 @@ public class CookieInterceptor extends HandlerInterceptorAdapter {
 			modelAndView.addObject("cookieMap", cookieMap);
 		}
 
-		// static method
+		/*// static method
 		if (modelAndView != null) {
 			modelAndView.addObject("I18nUtil", FtlUtil.generateStaticModel(I18nUtil.class.getName()));
 		}
-		
+		*/
 		super.postHandle(request, response, handler, modelAndView);
 	}
 	

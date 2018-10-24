@@ -45,44 +45,72 @@ public class XxlJobAdminConfig implements InitializingBean{
     @Value("${xxl.job.login.password}")
     private String loginPassword;
 
-    @Value("${xxl.job.i18n}")
-    private String i18n;
 
+    public static void setAdminConfig(XxlJobAdminConfig adminConfig) {
+        XxlJobAdminConfig.adminConfig = adminConfig;
+    }
 
     public String getMailHost() {
         return mailHost;
+    }
+
+    public void setMailHost(String mailHost) {
+        this.mailHost = mailHost;
     }
 
     public String getMailPort() {
         return mailPort;
     }
 
+    public void setMailPort(String mailPort) {
+        this.mailPort = mailPort;
+    }
+
     public boolean isMailSSL() {
         return mailSSL;
+    }
+
+    public void setMailSSL(boolean mailSSL) {
+        this.mailSSL = mailSSL;
     }
 
     public String getMailUsername() {
         return mailUsername;
     }
 
+    public void setMailUsername(String mailUsername) {
+        this.mailUsername = mailUsername;
+    }
+
     public String getMailPassword() {
         return mailPassword;
+    }
+
+    public void setMailPassword(String mailPassword) {
+        this.mailPassword = mailPassword;
     }
 
     public String getMailSendNick() {
         return mailSendNick;
     }
 
+    public void setMailSendNick(String mailSendNick) {
+        this.mailSendNick = mailSendNick;
+    }
+
     public String getLoginUsername() {
         return loginUsername;
+    }
+
+    public void setLoginUsername(String loginUsername) {
+        this.loginUsername = loginUsername;
     }
 
     public String getLoginPassword() {
         return loginPassword;
     }
 
-    public String getI18n() {
-        return i18n;
+    public void setLoginPassword(String loginPassword) {
+        this.loginPassword = loginPassword;
     }
-
 }

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Error</title>
+	<title>应用程序异常 (error)</title> 
     <style type="text/css"> 
         body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
         div.dialog {
@@ -21,9 +21,9 @@
 <body> 
 
 	<div class="dialog"> 
-	    <h1>System Error</h1>
+	    <h1>应用程序异常</h1> 
 	    <p>${exceptionMsg}</p>
-		<a href="javascript:window.location.href='${request.contextPath}/'">Back</a>
+		<a href="javascript:window.location.href='${request.contextPath}/'">返 回</a>
 	    </p> 
 	</div>
 

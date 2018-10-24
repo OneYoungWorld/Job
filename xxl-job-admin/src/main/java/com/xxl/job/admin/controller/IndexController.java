@@ -2,7 +2,6 @@ package com.xxl.job.admin.controller;
 
 import com.xxl.job.admin.controller.annotation.PermessionLimit;
 import com.xxl.job.admin.controller.interceptor.PermissionInterceptor;
-import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.admin.service.XxlJobService;
 import com.xxl.job.core.biz.model.ReturnT;
 import org.apache.commons.lang3.StringUtils;
@@ -68,14 +67,14 @@ public class IndexController {
 
 		// param
 		if (StringUtils.isBlank(userName) || StringUtils.isBlank(password)){
-			return new ReturnT<String>(500, I18nUtil.getString("login_param_empty"));
+			return new ReturnT<String>(500, "账号或密码为空");
 		}
 		boolean ifRem = (StringUtils.isNotBlank(ifRemember) && "on".equals(ifRemember))?true:false;
 
 		// do login
 		boolean loginRet = PermissionInterceptor.login(response, userName, password, ifRem);
 		if (!loginRet) {
-			return new ReturnT<String>(500, I18nUtil.getString("login_param_unvalid"));
+			return new ReturnT<String>(500, "账号或密码错误");
 		}
 		return ReturnT.SUCCESS;
 	}

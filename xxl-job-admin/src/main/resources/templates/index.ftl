@@ -1,11 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  	<#import "/common/common.macro.ftl" as netCommon>
+  	<title>任务调度中心</title>
+  	<#import "common/common.macro.ftl" as netCommon>
 	<@netCommon.commonStyle />
-    <!-- daterangepicker -->
-    <link rel="stylesheet" href="${request.contextPath}/static/adminlte/plugins/daterangepicker/daterangepicker.css">
-    <title>${I18n.admin_name}</title>
 </head>
 <body class="hold-transition skin-blue sidebar-mini <#if cookieMap?exists && "off" == cookieMap["xxljob_adminlte_settings"].value >sidebar-collapse</#if> ">
 <div class="wrapper">
@@ -18,12 +16,10 @@
 	<div class="content-wrapper">
 		<!-- Content Header (Page header) -->
 		<section class="content-header">
-			<h1>${I18n.job_dashboard_name}</h1>
-			<!--
 			<h1>运行报表<small>任务调度中心</small></h1>
+			<!--
 			<ol class="breadcrumb">
 				<li><a><i class="fa fa-dashboard"></i>调度中心</a></li>
-				<li class="active">使用教程</li>
 			</ol>
 			-->
 		</section>
@@ -40,13 +36,13 @@
                         <span class="info-box-icon"><i class="fa fa-flag-o"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">${I18n.job_dashboard_job_num}</span>
+                            <span class="info-box-text">任务数量</span>
                             <span class="info-box-number">${jobInfoCount}</span>
 
                             <div class="progress">
                                 <div class="progress-bar" style="width: 100%"></div>
                             </div>
-                            <span class="progress-description">${I18n.job_dashboard_job_num_tip}</span>
+                            <span class="progress-description">系统中配置的任务数量</span>
                         </div>
                     </div>
                 </div>
@@ -57,14 +53,14 @@
                         <span class="info-box-icon"><i class="fa fa-calendar"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">${I18n.job_dashboard_trigger_num}</span>
+                            <span class="info-box-text">调度次数</span>
                             <span class="info-box-number">${jobLogCount}</span>
 
                             <div class="progress">
                                 <div class="progress-bar" style="width: 100%" ></div>
                             </div>
                             <span class="progress-description">
-                                ${I18n.job_dashboard_trigger_num_tip}
+                                调度中心触发的调度次数
                                 <#--<#if jobLogCount gt 0>
                                     调度成功率：${(jobLogSuccessCount*100/jobLogCount)?string("0.00")}<small>%</small>
                                 </#if>-->
@@ -79,13 +75,13 @@
                         <span class="info-box-icon"><i class="fa ion-ios-settings-strong"></i></span>
 
                         <div class="info-box-content">
-                            <span class="info-box-text">${I18n.job_dashboard_jobgroup_num}</span>
+                            <span class="info-box-text">执行器数量</span>
                             <span class="info-box-number">${executorCount}</span>
 
                             <div class="progress">
                                 <div class="progress-bar" style="width: 100%"></div>
                             </div>
-                            <span class="progress-description">${I18n.job_dashboard_jobgroup_num_tip}</span>
+                            <span class="progress-description">心跳检测成功的执行器机器数量</span>
                         </div>
                     </div>
                 </div>
@@ -97,20 +93,8 @@
                 <div class="col-md-12">
                     <div class="box">
                         <div class="box-header with-border">
-                            <h3 class="box-title">${I18n.job_dashboard_report}</h3>
+                            <h3 class="box-title">调度报表（一月之内）</h3>
                             <#--<input type="text" class="form-control" id="filterTime" readonly >-->
-
-                            <!-- tools box -->
-                            <div class="pull-right box-tools">
-                                <button type="button" class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip" id="filterTime" >
-                                    <i class="fa fa-calendar"></i>
-                                </button>
-                                <#--<button type="button" class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px;" data-original-title="Collapse">
-                                    <i class="fa fa-minus"></i>
-                                </button>-->
-                            </div>
-                            <!-- /. tools -->
-
                         </div>
                         <div class="box-body">
                             <div class="row">
@@ -128,6 +112,7 @@
                 </div>
             </div>
 
+
 		</section>
 		<!-- /.content -->
 	</div>
@@ -137,11 +122,10 @@
 	<@netCommon.commonFooter />
 </div>
 <@netCommon.commonScript />
-<!-- daterangepicker -->
-<script src="${request.contextPath}/static/adminlte/plugins/daterangepicker/moment.min.js"></script>
-<script src="${request.contextPath}/static/adminlte/plugins/daterangepicker/daterangepicker.js"></script>
-<#-- echarts -->
-<script src="${request.contextPath}/static/plugins/echarts/echarts.common.min.js"></script>
-<script src="${request.contextPath}/static/js/index.js"></script>
+<#--<script src="${request.contextPath}/static/adminlte/plugins/daterangepicker/moment.min.js"></script>
+<script src="${request.contextPath}/static/adminlte/plugins/daterangepicker/daterangepicker.js"></script>-->
+<script src="/plugins/echarts/echarts.common.min.js"></script>
+<script src="/js/index.js"></script>
+
 </body>
 </html>

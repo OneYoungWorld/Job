@@ -4,7 +4,6 @@ import com.xxl.job.admin.core.model.XxlJobGroup;
 import com.xxl.job.admin.core.model.XxlJobInfo;
 import com.xxl.job.admin.core.route.ExecutorRouteStrategyEnum;
 import com.xxl.job.admin.core.schedule.XxlJobDynamicScheduler;
-import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.admin.dao.XxlJobGroupDao;
 import com.xxl.job.admin.dao.XxlJobInfoDao;
 import com.xxl.job.admin.dao.XxlJobLogDao;
@@ -71,33 +70,28 @@ public class XxlJobServiceImpl implements XxlJobService {
 		// valid
 		XxlJobGroup group = xxlJobGroupDao.load(jobInfo.getJobGroup());
 		if (group == null) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("system_please_choose")+I18nUtil.getString("jobinfo_field_jobgroup")) );
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "请选择“执行器”");
 		}
 		if (!CronExpression.isValidExpression(jobInfo.getJobCron())) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, I18nUtil.getString("jobinfo_field_cron_unvalid") );
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "请输入格式正确的“Cron”");
 		}
 		if (StringUtils.isBlank(jobInfo.getJobDesc())) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("system_please_input")+I18nUtil.getString("jobinfo_field_jobdesc")) );
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "请输入“任务描述”");
 		}
 		if (StringUtils.isBlank(jobInfo.getAuthor())) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("system_please_input")+I18nUtil.getString("jobinfo_field_author")) );
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "请输入“负责人”");
 		}
 		if (ExecutorRouteStrategyEnum.match(jobInfo.getExecutorRouteStrategy(), null) == null) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("jobinfo_field_executorRouteStrategy")+I18nUtil.getString("system_unvalid")) );
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "路由策略非法");
 		}
 		if (ExecutorBlockStrategyEnum.match(jobInfo.getExecutorBlockStrategy(), null) == null) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("jobinfo_field_executorBlockStrategy")+I18nUtil.getString("system_unvalid")) );
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "阻塞处理策略非法");
 		}
 		if (GlueTypeEnum.match(jobInfo.getGlueType()) == null) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("jobinfo_field_gluetype")+I18nUtil.getString("system_unvalid")) );
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "运行模式非法非法");
 		}
 		if (GlueTypeEnum.BEAN==GlueTypeEnum.match(jobInfo.getGlueType()) && StringUtils.isBlank(jobInfo.getExecutorHandler())) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("system_please_input")+"JobHandler") );
-		}
-
-		// fix "\r" in shell
-		if (GlueTypeEnum.GLUE_SHELL==GlueTypeEnum.match(jobInfo.getGlueType()) && jobInfo.getGlueSource()!=null) {
-			jobInfo.setGlueSource(jobInfo.getGlueSource().replaceAll("\r", ""));
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "请输入“JobHandler”");
 		}
 
 		// ChildJobId valid
@@ -108,11 +102,11 @@ public class XxlJobServiceImpl implements XxlJobService {
 					XxlJobInfo childJobInfo = xxlJobInfoDao.loadById(Integer.valueOf(childJobIdItem));
 					if (childJobInfo==null) {
 						return new ReturnT<String>(ReturnT.FAIL_CODE,
-								MessageFormat.format((I18nUtil.getString("jobinfo_field_childJobId")+"({0})"+I18nUtil.getString("system_not_found")), childJobIdItem));
+								MessageFormat.format("子任务Key({0})格式错误", childJobIdItem));
 					}
 				} else {
 					return new ReturnT<String>(ReturnT.FAIL_CODE,
-							MessageFormat.format((I18nUtil.getString("jobinfo_field_childJobId")+"({0})"+I18nUtil.getString("system_unvalid")), childJobIdItem));
+							MessageFormat.format("子任务Key({0})无效", childJobIdItem));
 				}
 			}
 			jobInfo.setChildJobId(StringUtils.join(childJobIds, ","));
@@ -121,7 +115,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 		// add in db
 		xxlJobInfoDao.save(jobInfo);
 		if (jobInfo.getId() < 1) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("jobinfo_field_add")+I18nUtil.getString("system_fail")) );
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "新增任务失败" );
 		}
 
 		// add in quartz
@@ -139,7 +133,7 @@ public class XxlJobServiceImpl implements XxlJobService {
             } catch (SchedulerException e1) {
                 logger.error(e.getMessage(), e1);
             }
-            return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("jobinfo_field_add")+I18nUtil.getString("system_fail"))+":" + e.getMessage());
+            return new ReturnT<String>(ReturnT.FAIL_CODE, "新增任务失败:" + e.getMessage());
         }
 	}
 
@@ -148,19 +142,19 @@ public class XxlJobServiceImpl implements XxlJobService {
 
 		// valid
 		if (!CronExpression.isValidExpression(jobInfo.getJobCron())) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, I18nUtil.getString("jobinfo_field_cron_unvalid") );
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "请输入格式正确的“Cron”");
 		}
 		if (StringUtils.isBlank(jobInfo.getJobDesc())) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("system_please_input")+I18nUtil.getString("jobinfo_field_jobdesc")) );
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "请输入“任务描述”");
 		}
 		if (StringUtils.isBlank(jobInfo.getAuthor())) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("system_please_input")+I18nUtil.getString("jobinfo_field_author")) );
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "请输入“负责人”");
 		}
 		if (ExecutorRouteStrategyEnum.match(jobInfo.getExecutorRouteStrategy(), null) == null) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("jobinfo_field_executorRouteStrategy")+I18nUtil.getString("system_unvalid")) );
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "路由策略非法");
 		}
 		if (ExecutorBlockStrategyEnum.match(jobInfo.getExecutorBlockStrategy(), null) == null) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("jobinfo_field_executorBlockStrategy")+I18nUtil.getString("system_unvalid")) );
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "阻塞处理策略非法");
 		}
 
 		// ChildJobId valid
@@ -171,11 +165,11 @@ public class XxlJobServiceImpl implements XxlJobService {
 					XxlJobInfo childJobInfo = xxlJobInfoDao.loadById(Integer.valueOf(childJobIdItem));
 					if (childJobInfo==null) {
 						return new ReturnT<String>(ReturnT.FAIL_CODE,
-								MessageFormat.format((I18nUtil.getString("jobinfo_field_childJobId")+"({0})"+I18nUtil.getString("system_not_found")), childJobIdItem));
+								MessageFormat.format("子任务Key({0})格式错误", childJobIdItem));
 					}
 				} else {
 					return new ReturnT<String>(ReturnT.FAIL_CODE,
-							MessageFormat.format((I18nUtil.getString("jobinfo_field_childJobId")+"({0})"+I18nUtil.getString("system_unvalid")), childJobIdItem));
+							MessageFormat.format("子任务Key({0})无效", childJobIdItem));
 				}
 			}
 			jobInfo.setChildJobId(StringUtils.join(childJobIds, ","));
@@ -184,7 +178,7 @@ public class XxlJobServiceImpl implements XxlJobService {
 		// stage job info
 		XxlJobInfo exists_jobInfo = xxlJobInfoDao.loadById(jobInfo.getId());
 		if (exists_jobInfo == null) {
-			return new ReturnT<String>(ReturnT.FAIL_CODE, (I18nUtil.getString("jobinfo_field_id")+I18nUtil.getString("system_not_found")) );
+			return new ReturnT<String>(ReturnT.FAIL_CODE, "任务ID非法");
 		}
 		//String old_cron = exists_jobInfo.getJobCron();
 

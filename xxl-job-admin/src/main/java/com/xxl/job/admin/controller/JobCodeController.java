@@ -2,7 +2,6 @@ package com.xxl.job.admin.controller;
 
 import com.xxl.job.admin.core.model.XxlJobInfo;
 import com.xxl.job.admin.core.model.XxlJobLogGlue;
-import com.xxl.job.admin.core.util.I18nUtil;
 import com.xxl.job.admin.dao.XxlJobInfoDao;
 import com.xxl.job.admin.dao.XxlJobLogGlueDao;
 import com.xxl.job.core.biz.model.ReturnT;
@@ -33,12 +32,11 @@ public class JobCodeController {
 	public String index(Model model, int jobId) {
 		XxlJobInfo jobInfo = xxlJobInfoDao.loadById(jobId);
 		List<XxlJobLogGlue> jobLogGlues = xxlJobLogGlueDao.findByJobId(jobId);
-
 		if (jobInfo == null) {
-			throw new RuntimeException(I18nUtil.getString("jobinfo_glue_jobid_unvalid"));
+			throw new RuntimeException("抱歉，任务不存在.");
 		}
 		if (GlueTypeEnum.BEAN == GlueTypeEnum.match(jobInfo.getGlueType())) {
-			throw new RuntimeException(I18nUtil.getString("jobinfo_glue_gluetype_unvalid"));
+			throw new RuntimeException("该任务非GLUE模式.");
 		}
 
 		// Glue类型-字典
@@ -54,14 +52,14 @@ public class JobCodeController {
 	public ReturnT<String> save(Model model, int id, String glueSource, String glueRemark) {
 		// valid
 		if (glueRemark==null) {
-			return new ReturnT<String>(500, (I18nUtil.getString("system_please_input") + I18nUtil.getString("jobinfo_glue_remark")) );
+			return new ReturnT<String>(500, "请输入备注");
 		}
 		if (glueRemark.length()<4 || glueRemark.length()>100) {
-			return new ReturnT<String>(500, I18nUtil.getString("jobinfo_glue_remark_limit"));
+			return new ReturnT<String>(500, "备注长度应该在4至100之间");
 		}
 		XxlJobInfo exists_jobInfo = xxlJobInfoDao.loadById(id);
 		if (exists_jobInfo == null) {
-			return new ReturnT<String>(500, I18nUtil.getString("jobinfo_glue_jobid_unvalid"));
+			return new ReturnT<String>(500, "参数异常");
 		}
 		
 		// update new code
