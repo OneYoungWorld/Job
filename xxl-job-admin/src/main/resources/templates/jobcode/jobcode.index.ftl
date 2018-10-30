@@ -2,7 +2,7 @@
 <html>
 <head>
   	<title>任务调度中心</title>
-  	<#import "common/common.macro.ftl" as netCommon>
+  	<#import "/common/common.macro.ftl" as netCommon>
 	<@netCommon.commonStyle />
 	<link rel="stylesheet" href="/plugins/codemirror/lib/codemirror.css">
 	<link rel="stylesheet" href="/plugins/codemirror/addon/hint/show-hint.css">

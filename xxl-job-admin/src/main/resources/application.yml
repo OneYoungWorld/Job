@@ -1,17 +1,19 @@
 server:
   port: 7878
 spring:
-  mvc:
-    static-path-pattern: /static/**
+  #mvc:
+    #static-path-pattern: /static/**
   freemarker:
     suffix: .ftl
     content-type: text/html;charset=UTF-8
     cache: true
-    template-loader-path: classpath:/template/
+    template-loader-path: classpath:/templates/
     expose-request-attributes: true
     expose-session-attributes: true
     expose-spring-macro-helpers: true
     request-context-attribute: request
+  thymeleaf:
+    cache: false
 
     settings:
       template_update_delay: 0

@@ -2,7 +2,7 @@
 <html>
 <head>
   	<title>调度中心</title>
-  	<#import "common/common.macro.ftl" as netCommon>
+  	<#import "/common/common.macro.ftl" as netCommon>
 	<@netCommon.commonStyle />
     <link rel="stylesheet" href="/adminlte/plugins/iCheck/square/blue.css">
 </head>
